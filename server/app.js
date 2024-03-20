@@ -32,12 +32,8 @@ app.delete('/api/items/:id', db.deleteItem);
 
 const getRoles = (req, res) =>{
   console.log('Got request');
-  res.send({
-    "roles": [
-      "Reader",
-      "Contributor"
-    ]
-  });
+  const roles = req.body.userDetails === 'andimarc' ? ["reader", "contributor"] : [];
+  res.send({ roles });
 }
 
 app.get('/api/getroles', getRoles);

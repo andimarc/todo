@@ -1,15 +1,16 @@
 const Pool = require('pg').Pool;
 require('dotenv').config();
 
-const connectionString = process.env.POSTGRES_URL;
+const connectionString = "postgresql://andimarc:iis6!dfu@andimarc-static.postgres.database.azure.com:5432/postgres"; //process.env.POSTGRES_URL;
 const pool = new Pool({
-  connectionString
+  connectionString: connectionString
 });
 
 const getItems = (request, response) => {
   pool.query('SELECT * FROM TodoItems', (error, results) => {
     if (error) {
       console.log(error);
+      response.status(200).json([]);
       return;
     }
     response.status(200).json(results.rows);
